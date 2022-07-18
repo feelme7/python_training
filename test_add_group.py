@@ -13,7 +13,7 @@ class TestAddGroup(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     
-    def test_untitled_test_case(self):
+    def test_add_group(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
         wd.find_element_by_name("user").clear()
