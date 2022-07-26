@@ -62,6 +62,14 @@ class TestAddContacts(unittest.TestCase):
                        email="jcd@gmail.com")
         logout(wd)
 
+    def test_add_empty_contacts(self):
+        wd = self.wd
+        open_home_page(wd)
+        login(wd, username="admin", password="secret")
+        open_add_new_page(wd)
+        create_contact(wd, firstname="", middlename="", lastname="", mobile="", email="")
+        logout(wd)
+
     def is_element_present(self, how, what):
         try: self.wd.find_element(by=how, value=what)
         except NoSuchElementException as e: return False
