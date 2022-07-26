@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
@@ -40,13 +39,6 @@ def create_contact(wd):
     wd.find_element_by_name("email").click()
     wd.find_element_by_name("email").clear()
     wd.find_element_by_name("email").send_keys("jcd@gmail.com")
-    wd.find_element_by_name("bday").click()
-    Select(wd.find_element_by_name("bday")).select_by_visible_text("9")
-    wd.find_element_by_name("bmonth").click()
-    Select(wd.find_element_by_name("bmonth")).select_by_visible_text("June")
-    wd.find_element_by_name("byear").click()
-    wd.find_element_by_name("byear").clear()
-    wd.find_element_by_name("byear").send_keys("1963")
     # enter contact
     wd.find_element_by_name("theform").click()
     wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
