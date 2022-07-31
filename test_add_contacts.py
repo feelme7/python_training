@@ -4,12 +4,14 @@ import unittest
 from contact import Contact
 
 
-def open_home_page(wd):
+def open_home_page(self):
+    wd = self.wd
     wd.get("http://localhost/addressbook/")
 
 
-def login(wd, username, password):
-    open_home_page(wd)
+def login(self, username, password):
+    wd = self.wd
+    open_home_page(self)
     wd.find_element_by_name("user").click()
     wd.find_element_by_name("user").clear()
     wd.find_element_by_name("user").send_keys(username)
@@ -19,12 +21,14 @@ def login(wd, username, password):
     wd.find_element_by_xpath("//input[@value='Login']").click()
 
 
-def open_add_new_page(wd):
+def open_add_new_page(self):
+    wd = self.wd
     wd.find_element_by_link_text("add new").click()
 
 
-def create_contact(wd, contact):
-    open_add_new_page(wd)
+def create_contact(self, contact):
+    wd = self.wd
+    open_add_new_page(self)
     wd.find_element_by_name("firstname").click()
     wd.find_element_by_name("firstname").clear()
     wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -45,7 +49,8 @@ def create_contact(wd, contact):
     wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
 
-def logout(wd):
+def logout(self):
+    wd = self.wd
     wd.find_element_by_link_text("Logout").click()
 
 
@@ -55,18 +60,15 @@ class TestAddContacts(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def test_add_contacts(self):
-        wd = self.wd
-        login(wd, username="admin", password="secret")
-        create_contact(wd, Contact(firstname="John", middlename="Christopher", lastname="Depp", mobile="89993332211",
+        login(self, username="admin", password="secret")
+        create_contact(self, Contact(firstname="John", middlename="Christopher", lastname="Depp", mobile="89993332211",
                        email="jcd@gmail.com"))
-        logout(wd)
+        logout(self)
 
     def test_add_empty_contacts(self):
-        wd = self.wd
-
-        login(wd, username="admin", password="secret")
-        create_contact(wd, Contact(firstname="", middlename="", lastname="", mobile="", email=""))
-        logout(wd)
+        login(self, username="admin", password="secret")
+        create_contact(self, Contact(firstname="", middlename="", lastname="", mobile="", email=""))
+        logout(self)
 
     def tearDown(self):
         self.wd.quit()
